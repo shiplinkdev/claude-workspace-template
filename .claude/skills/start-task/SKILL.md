@@ -1,3 +1,5 @@
+> **Run this skill in a fresh Claude Code session.** All context needed is in the GitHub issues — no session history is required. Running inside a long-running session accumulates unnecessary token cost with no benefit.
+
 # start-task
 
 ## Purpose
