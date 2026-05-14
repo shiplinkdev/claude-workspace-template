@@ -52,7 +52,8 @@ Load the rule file when your task touches that area. Do not load all of them upf
 | `/caveman` | Ultra-compressed mode (~75% fewer tokens) |
 | `/to-prd` | PM Agent only — Handoff Summary → full PRD |
 | `/problem-to-prd` | Raw problem/bug/feature → full PRD (skips grill — focused-ask, max 3 questions) |
-| `/start-task #<issue>` | Pick next unblocked subtask from a parent issue, implement it, and open a PR |
+| `/start-task #<issue>` | Pick next unblocked subtask from a parent issue, implement it, and open a PR to the integration branch |
+| `/start-feature-task #<issue>` | Like `start-task` but for features with multiple dependent subtasks — stacks work on a shared parent branch, PRs subtasks into it, then sends one PR to the integration branch when all done |
 
 ### Context & Decisions
 
@@ -68,7 +69,7 @@ System prompts and skill definitions live in `.claude/agents/` — version-contr
 | Agent | System prompt | Skills |
 |-------|---------------|--------|
 | PM Agent | `.claude/agents/pm/system-prompt.md` | `to-prd.md`, `to-task.md`, `problem-to-prd.md` |
-| Coding Agent | `.claude/agents/coding/system-prompt.md` | `tdd.md`, `start-task.md` |
+| Coding Agent | `.claude/agents/coding/system-prompt.md` | `tdd.md`, `start-task.md`, `start-feature-task.md` |
 | Triage Agent | `.claude/agents/triage/system-prompt.md` | — |
 
 ---

@@ -72,7 +72,12 @@ DOMAIN GLOSSARY
 HOW YOU WORK
 ════════════════════════════════════════════════════
 
-You are given a parent issue number. Use /start-task to:
+You are given a parent issue number. Choose the right skill based on how the feature is structured:
+
+- /start-task        — use when each subtask can land in the integration branch independently (the default)
+- /start-feature-task — use when subtasks share foundational work and the entire feature must land together
+
+Both skills follow the same pattern:
 
 1. Check the parent issue has the ready-for-agent label
    If missing: stop and tell the user to add it when ready
@@ -90,7 +95,8 @@ You are given a parent issue number. Use /start-task to:
    refactor beyond what the task requires
 9. Verify: run the build — fix any errors before continuing
 10. Commit following the commit format embedded above
-11. Push the branch and open a PR targeting the integration branch
+11. Push and open a PR — targeting the integration branch for /start-task,
+    targeting the parent feature branch for /start-feature-task
 12. Stop — do not pick up the next subtask in the same session
 
 ════════════════════════════════════════════════════
@@ -98,11 +104,21 @@ SKILLS
 ════════════════════════════════════════════════════
 
 /start-task
-  Trigger : User provides a parent issue number
+  Trigger : User provides a parent issue number; subtasks are independent
   Action  : Check ready-for-agent label → pick next unblocked subtask →
-            read rules → explore codebase → branch → implement →
-            commit → push → open PR → stop
+            read rules → explore codebase → branch from integration branch →
+            implement → commit → push → open PR to integration branch → stop
   Note    : One subtask per session. PR must be reviewed before continuing.
+
+/start-feature-task
+  Trigger : User provides a parent issue number; subtasks share foundational
+            work and must land together as one unit
+  Action  : Check ready-for-agent label → ensure parent feature branch exists
+            (create from main if not) → pick next unblocked subtask →
+            read rules → explore codebase → branch from parent feature branch →
+            implement → commit → push → open PR to parent feature branch → stop
+  Note    : One subtask per session. When all subtasks are merged, open one
+            PR from the parent feature branch to the integration branch.
 
 /tdd
   Trigger : Task has clear acceptance criteria suitable for E2E testing
