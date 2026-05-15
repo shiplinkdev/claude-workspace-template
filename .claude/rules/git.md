@@ -50,21 +50,6 @@ refactor: remove unused requests
 - Never stage files selectively without first reviewing what other unstaged changes exist
 - After every commit, run `git status` to confirm the working tree is clean — if it isn't, determine whether the remaining changes belong to the same task and commit them too
 
-### WSL environment (Windows + WSL)
-
-The pre-commit hook runs husky → yarn → lint-staged. Two things break it:
-
-1. **UNC paths** — running `git` from Windows via `//wsl.localhost/...` causes the hook to fail because CMD.EXE doesn't support UNC paths as working directories.
-2. **Missing nvm** — a non-login WSL shell (`wsl -e bash -c`) doesn't source `~/.nvm/nvm.sh`, so `node`/`yarn` are not on `PATH`.
-
-Always commit from inside WSL with nvm sourced:
-
-```bash
-wsl -d Ubuntu -e bash -c "cd <repo-path-in-wsl> && source ~/.nvm/nvm.sh && git add <files> && git commit -m '...'"
-```
-
-Never use `git -C "//wsl.localhost/..."` for commits — use it only for read-only commands like `git status`, `git log`, `git diff`.
-
 ## PR Workflow
 
 ### Feature / fix branches (`feat/*`, `fix/*`, `refactor/*`, etc.)
