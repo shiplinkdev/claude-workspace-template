@@ -139,7 +139,7 @@ Fix any type errors or build failures before committing.
 
 ### 11. Commit
 
-Follow `.claude/rules/git.md` commit format. In WSL, use the wsl commit pattern to avoid hook failures.
+Follow `.claude/rules/git.md` commit format.
 
 ```
 feat(<subtask-number>): <short description>
